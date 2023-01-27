@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:quirby_app/components/button.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -179,6 +180,17 @@ class HomePage extends StatelessWidget {
                         ]),
                   ),
                 )),
+            Positioned(
+                top: 500,
+                left: 50,
+                child: QuirbyButton(
+                    text: 'TESTANDO BOTAO',
+                    width: 350,
+                    buttonIcon: const ImageIcon(
+                      AssetImage('assets/icons/aleatorio.png'),
+                      color: Colors.green,
+                    ),
+                    action: () => {print('To funcionando')}))
           ]),
         ));
   }
