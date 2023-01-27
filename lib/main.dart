@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:quirby_app/screens/home/home_screen.dart';
+import 'package:quirby_app/screens/modos/modos_screen.dart';
+import 'package:quirby_app/screens/perfil/perfil_screen.dart';
 
 void main() => runApp(const MyApp());
 
@@ -24,27 +27,17 @@ class MyStatefulWidget extends StatefulWidget {
 }
 
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
-  int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Modos',
-      style: optionStyle,
-    ),
-    Text(
-      'Home',
-      style: optionStyle,
-    ),
-    Text(
-      'Perfil',
-      style: optionStyle,
-    ),
+  int _selectedIndexPage = 1;
+
+  final List<Widget> _pageList = <Widget>[
+    const PerfilPage(),
+    const HomePage(),
+    const ModosPage(),
   ];
 
   void _onItemTapped(int index) {
     setState(() {
-      _selectedIndex = index;
+      _selectedIndexPage = index;
     });
   }
 
@@ -52,7 +45,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
+        child: _pageList.elementAt(_selectedIndexPage),
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
@@ -72,7 +65,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
             label: 'Perfil',
           ),
         ],
-        currentIndex: _selectedIndex,
+        currentIndex: _selectedIndexPage,
         onTap: _onItemTapped,
       ),
     );
