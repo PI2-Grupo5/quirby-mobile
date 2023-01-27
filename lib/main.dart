@@ -53,7 +53,11 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         unselectedItemColor: Color.fromARGB(204, 174, 238, 164),
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.cleaning_services_outlined),
+            icon: CircleAvatar(
+              backgroundImage: AssetImage('assets/icons/quirby.png'),
+              radius: 14,
+              backgroundColor: Colors.white,
+            ),
             label: 'Modos de Uso',
           ),
           BottomNavigationBarItem(
