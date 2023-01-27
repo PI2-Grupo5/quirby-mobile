@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:quirby_app/screens/home/home_screen.dart';
 import 'package:quirby_app/screens/modos/modos_screen.dart';
 import 'package:quirby_app/screens/perfil/perfil_screen.dart';
+import 'package:quirby_app/screens/termosUso/termos_uso.screen.dart';
 
 void main() => runApp(const MyApp());
 
@@ -12,9 +13,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: _title,
-      home: MyStatefulWidget(),
+      home: const MyStatefulWidget(),
+      routes: {'/termos-uso': (_) => const TermosDeUso()},
     );
   }
 }

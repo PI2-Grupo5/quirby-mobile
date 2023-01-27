@@ -280,8 +280,10 @@ class _HomePageState extends State<HomePage> {
                             child: QuirbyButton(
                                 text: 'Termos de Uso e Privacidade',
                                 width: 400,
-                                action: () =>
-                                    {print('Termos de Uso e Privacidade')}),
+                                action: () => {
+                                      Navigator.pushNamed(
+                                          context, '/termos-uso')
+                                    }),
                           )
                         ]),
                   ),
