@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:quirby_app/screens/home/home_screen.dart';
 import 'package:quirby_app/screens/modos/modos_screen.dart';
+import 'package:quirby_app/screens/modos/modo_aleatorio_screen.dart';
+import 'package:quirby_app/screens/modos/modo_direcional_screen.dart';
 import 'package:quirby_app/screens/perfil/perfil_screen.dart';
 import 'package:quirby_app/screens/termosUso/termos_uso.screen.dart';
+import 'package:quirby_app/screens/informacoes/informacoes_quirby.dart';
+import 'package:quirby_app/screens/informacoes/ajuda.dart';
 
 void main() => runApp(const MyApp());
 
@@ -16,9 +20,19 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: _title,
       home: const MyStatefulWidget(),
-      routes: {'/termos-uso': (_) => const TermosDeUso()},
+      routes: {
+        '/termos-uso': (_) => const TermosDeUso(),
+        '/modo-aleatorio': (_) => const AleatorioPage(),
+        '/modo-direcional': (_) => const DirecionalPage(),
+        '/informacoes-quirby': (_) => const InformacaoPage(),
+        '/ajuda': (_) => const AjudaPage(),
+      },
     );
+    
   }
+
+
+
 }
 
 class MyStatefulWidget extends StatefulWidget {
@@ -32,9 +46,9 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   int _selectedIndexPage = 1;
 
   final List<Widget> _pageList = <Widget>[
-    const PerfilPage(),
-    const HomePage(),
     const ModosPage(),
+    const HomePage(),
+    const PerfilPage(),
   ];
 
   void _onItemTapped(int index) {

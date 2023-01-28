@@ -20,14 +20,14 @@ class QuirbyButton extends StatelessWidget {
         label: Text(text),
         icon: buttonIcon!,
         style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.greenAccent[700],
+            backgroundColor: Color(0xff81D460),
             fixedSize: Size(width, 30)),
       );
     } else {
       return ElevatedButton(
           onPressed: action,
           style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.greenAccent[700],
+              backgroundColor: Color(0xff81D460),
               fixedSize: Size(width, 30)),
           child: Text(text));
     }
