@@ -8,8 +8,8 @@ class TermosDeUso extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Termos de Uso'),
-          backgroundColor: Colors.green[900],
+          title: const Text('Termos de Uso', style: TextStyle(color: Color(0xff87986A))),
+          backgroundColor: Colors.white,
         ),
         body: const Padding(
           padding: EdgeInsets.symmetric(horizontal: 50, vertical: 100),
