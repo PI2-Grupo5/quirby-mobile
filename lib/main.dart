@@ -7,6 +7,7 @@ import 'package:quirby_app/screens/perfil/perfil_screen.dart';
 import 'package:quirby_app/screens/termosUso/termos_uso.screen.dart';
 import 'package:quirby_app/screens/informacoes/informacoes_quirby.dart';
 import 'package:quirby_app/screens/informacoes/ajuda.dart';
+import 'package:quirby_app/screens/conexao/wifi_screen.dart';
 
 void main() => runApp(const MyApp());
 
@@ -26,11 +27,12 @@ class MyApp extends StatelessWidget {
         '/modo-direcional': (_) => const DirecionalPage(),
         '/informacoes-quirby': (_) => const InformacaoPage(),
         '/ajuda': (_) => const AjudaPage(),
+        '/conectar-wifi': (_) => const WifiPage(),
+
       },
     );
     
   }
-
 
 
 }
