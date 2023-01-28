@@ -34,7 +34,10 @@ class ModosPage extends StatelessWidget {
                           child: QuirbyButton(
                               text: 'Modo Aleatório',
                               width: 250,
-                              action: () => {print('Ativando modo Aleatório')}),
+                              action: () => {
+                                Navigator.pushNamed(
+                                  context, '/modo-aleatorio')
+                                }),
                         )
                       ]),
               ),
