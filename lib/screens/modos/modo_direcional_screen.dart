@@ -3,25 +3,24 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:quirby_app/components/button.dart';
 
-
-class AleatorioPage extends StatefulWidget {
-    const AleatorioPage({super.key});
+class DirecionalPage extends StatefulWidget {
+    const DirecionalPage({super.key});
 
     @override
-    State<AleatorioPage> createState() => _AleatorioPageState();
+    State<DirecionalPage> createState() => _DirecionalPageState();
 
 }
 
-class _AleatorioPageState extends State<AleatorioPage> {
-  bool isAleatorioOn = false;
+class _DirecionalPageState extends State<DirecionalPage> {
+  bool isDirecionalOn = false;
 
   @override
   Widget build(BuildContext context) {
-    if(isAleatorioOn == false){
+    if(isDirecionalOn == false){
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Modo Aleatório', style: TextStyle(color: Color(0xff87986A), fontFamily: 'Schyler')),
+          title: const Text('Modo Direcional', style: TextStyle(color: Color(0xff87986A), fontFamily: 'Schyler')),
           backgroundColor: Colors.white,
         ),
         body: Stack(
@@ -43,17 +42,17 @@ class _AleatorioPageState extends State<AleatorioPage> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children:  [
                                 ImageIcon(
-                                  AssetImage('assets/icons/aleatorio.png'),
+                                  AssetImage('assets/icons/direcional.png'),
                                   color: Colors.green,
                                 ),
                                 SizedBox(
                                   width: 8,
                                 ),
                                 QuirbyButton(
-                                    text: 'Acionar Modo Aleatório',
+                                    text: 'Acionar Modo Direcional',
                                     width: 250,
-                                    action: () => {print('Ativando modo Aleatório'),
-                                    isAleatorioOn =true,
+                                    action: () => {print('Ativando modo Direcional'),
+                                    isDirecionalOn =true,
                                     }
                                 ),
                                 SizedBox(
@@ -80,7 +79,7 @@ class _AleatorioPageState extends State<AleatorioPage> {
       return MaterialApp(
             home: Scaffold(
               appBar: AppBar(
-                title: const Text('Modo Aleatório', style: TextStyle(color: Color(0xff87986A), fontFamily: 'Schyler')),
+                title: const Text('Modo Direcional', style: TextStyle(color: Color(0xff87986A), fontFamily: 'Schyler')),
                 backgroundColor: Colors.white,
               ),
               body: Stack(
@@ -102,17 +101,17 @@ class _AleatorioPageState extends State<AleatorioPage> {
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children:  [
                                       ImageIcon(
-                                        AssetImage('assets/icons/aleatorio.png'),
+                                        AssetImage('assets/icons/direcional.png'),
                                         color: Colors.green,
                                       ),
                                       SizedBox(
                                         width: 8,
                                       ),
                                       QuirbyButton(
-                                          text: 'Desligar Modo Aleatório',
+                                          text: 'Desligar Modo Direcional',
                                           width: 250,
-                                          action: () => {print('Desligando modo Aleatório'),
-                                          isAleatorioOn =false,
+                                          action: () => {print('Desligando modo Direcional'),
+                                          isDirecionalOn =false,
                                           }
                                       ),
                                       SizedBox(
@@ -140,6 +139,3 @@ class _AleatorioPageState extends State<AleatorioPage> {
   }
 
 }
-
-  
-

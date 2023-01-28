@@ -59,7 +59,8 @@ class ModosPage extends StatelessWidget {
                           child: QuirbyButton(
                               text: 'Modo Direcional',
                               width: 250,
-                              action: () => {print('Ativando modo Direcional')}),
+                              action: () => {                              
+                                Navigator.pushNamed(context, '/modo-direcional')}),
                         )
                       ]),
               ),

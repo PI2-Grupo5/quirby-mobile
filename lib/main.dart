@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:quirby_app/screens/home/home_screen.dart';
 import 'package:quirby_app/screens/modos/modos_screen.dart';
 import 'package:quirby_app/screens/modos/modo_aleatorio_screen.dart';
+import 'package:quirby_app/screens/modos/modo_direcional_screen.dart';
 import 'package:quirby_app/screens/perfil/perfil_screen.dart';
 import 'package:quirby_app/screens/termosUso/termos_uso.screen.dart';
 
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/termos-uso': (_) => const TermosDeUso(),
         '/modo-aleatorio': (_) => const AleatorioPage(),
+        '/modo-direcional': (_) => const DirecionalPage(),
       },
     );
     
