@@ -32,9 +32,9 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   int _selectedIndexPage = 1;
 
   final List<Widget> _pageList = <Widget>[
-    const PerfilPage(),
-    const HomePage(),
     const ModosPage(),
+    const HomePage(),
+    const PerfilPage(),
   ];
 
   void _onItemTapped(int index) {

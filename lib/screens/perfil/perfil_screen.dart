@@ -30,7 +30,7 @@ class PerfilPage extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Column(children: [
                   Container(
-                    child: Text('Testando modal'),
+                    child: Text('Testando modal perfil'),
                   )
                 ]),
               ),
