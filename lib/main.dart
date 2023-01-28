@@ -5,6 +5,8 @@ import 'package:quirby_app/screens/modos/modo_aleatorio_screen.dart';
 import 'package:quirby_app/screens/modos/modo_direcional_screen.dart';
 import 'package:quirby_app/screens/perfil/perfil_screen.dart';
 import 'package:quirby_app/screens/termosUso/termos_uso.screen.dart';
+import 'package:quirby_app/screens/informacoes/informacoes_quirby.dart';
+import 'package:quirby_app/screens/informacoes/ajuda.dart';
 
 void main() => runApp(const MyApp());
 
@@ -22,6 +24,8 @@ class MyApp extends StatelessWidget {
         '/termos-uso': (_) => const TermosDeUso(),
         '/modo-aleatorio': (_) => const AleatorioPage(),
         '/modo-direcional': (_) => const DirecionalPage(),
+        '/informacoes-quirby': (_) => const InformacaoPage(),
+        '/ajuda': (_) => const AjudaPage(),
       },
     );
     
