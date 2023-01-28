@@ -12,7 +12,7 @@ class DirecionalPage extends StatefulWidget {
 }
 
 class _DirecionalPageState extends State<DirecionalPage> {
-  bool isDirecionalOn = false;
+  bool isDirecionalOn = true;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class _DirecionalPageState extends State<DirecionalPage> {
         body: Stack(
           children: [
           Positioned(
-                  top: MediaQuery.of(context).size.height * 0.1,
+                  top: MediaQuery.of(context).size.height * 0.02,
                   left: MediaQuery.of(context).size.width * -0.02,
                   child: Container(
                     width: 400,
@@ -73,6 +73,7 @@ class _DirecionalPageState extends State<DirecionalPage> {
                     ),
                   )),
         ]),
+        
       ),
     );
     } else{
@@ -85,7 +86,7 @@ class _DirecionalPageState extends State<DirecionalPage> {
               body: Stack(
                 children: [
                 Positioned(
-                        top: MediaQuery.of(context).size.height * 0.1,
+                        top: MediaQuery.of(context).size.height * 0.02,
                         left: MediaQuery.of(context).size.width * -0.02,
                         child: Container(
                           width: 400,
@@ -131,6 +132,72 @@ class _DirecionalPageState extends State<DirecionalPage> {
                                 ]),
                           ),
                         )),
+                Positioned(
+                    top: MediaQuery.of(context).size.height * 0.15,
+                    left: MediaQuery.of(context).size.width * 0.05,
+                    child: Container(
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    height: MediaQuery.of(context).size.height * 0.7,
+                        decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(15),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            spreadRadius: 3,
+                            blurRadius: 10,
+                            offset: const Offset(0, 3),
+                          )
+                        ]),
+                )
+            ),
+              Positioned(
+              top:  MediaQuery.of(context).size.height * 0.15,
+              left: MediaQuery.of(context).size.width * -0.05,
+              child: SizedBox(
+                width: 400,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 20, vertical: 20),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(height: 10),
+                        Center(
+                          child: IconButton(
+                            icon: Icon(Icons.arrow_circle_up, color: Color(0xff81D460)),
+                            iconSize: 100.0,
+                            onPressed: () {print('Frente');}
+                          ),
+                        ),
+                        const SizedBox(height: 50),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center, 
+                          children: [
+                            IconButton(
+                              icon: Icon(Icons.arrow_circle_left_outlined, color: Color(0xff81D460)),
+                              iconSize: 100.0,
+                              onPressed: () {print('Esquerda');}
+                            ),
+                            const SizedBox(width: 80),
+                            IconButton(
+                              icon: Icon(Icons.arrow_circle_right_outlined, color: Color(0xff81D460)),
+                              iconSize: 100.0,
+                              onPressed: () {print('Direita');}
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 50),
+                          Center(
+                          child: IconButton(
+                            icon: Icon(Icons.arrow_circle_down, color: Color(0xff81D460)  ),
+                            iconSize: 100.0,
+                            onPressed: () {print('Volta');}
+                          ),
+                        ),
+                      ]),
+              ),
+            )),
               ]),
             ),
           );
