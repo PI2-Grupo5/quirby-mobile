@@ -82,8 +82,8 @@ class ModosPage extends StatelessWidget {
                           child: QuirbyButton(
                               text: 'Agendamento de Limpeza',
                               width: 250,
-                              action: () => {print('Redirecionando para agendamento de limpeza')}),
-                        )
+                              action: () => {                              
+                                Navigator.pushNamed(context, '/agendamento')}),                        )
                       ]),
               ),
             )),

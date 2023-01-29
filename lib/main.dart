@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quirby_app/screens/home/home_screen.dart';
+import 'package:quirby_app/screens/modos/agendamento_screen.dart';
 import 'package:quirby_app/screens/modos/modos_screen.dart';
 import 'package:quirby_app/screens/modos/modo_aleatorio_screen.dart';
 import 'package:quirby_app/screens/modos/modo_direcional_screen.dart';
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
         '/informacoes-quirby': (_) => const InformacaoPage(),
         '/ajuda': (_) => const AjudaPage(),
         '/conectar-wifi': (_) => const WifiPage(),
+        '/agendamento': (_) => const AgendamentoPage(),
 
       },
     );
