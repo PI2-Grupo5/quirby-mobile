@@ -37,6 +37,17 @@ class _AgendamentoPageState extends State<AgendamentoPage> {
         appBar: AppBar(
           title: const Text('Agendamento de Limpeza', style: TextStyle(color: Color(0xff87986A))),
           backgroundColor: Colors.white,
+          automaticallyImplyLeading: false,
+          leadingWidth: 70,
+          leading: ElevatedButton.icon(
+          onPressed: () => Navigator.of(context).pop(),
+          icon:  Icon(Icons.arrow_back_sharp, color: Color(0xff87986A)),
+          label: const Text(''),
+          style: ElevatedButton.styleFrom(
+            elevation: 0,
+            backgroundColor: Colors.transparent,
+          ),
+        ),
         ),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -122,7 +133,11 @@ class _AgendamentoPageState extends State<AgendamentoPage> {
                         }
                     },
                     child: const Text('Confirmar'),
-                )
+                ),
+                SizedBox(
+                  height: 50,
+                ),
+                Text('Limpezas Agendadas', style: TextStyle(fontSize: 20, color: Color(0xff87986A), fontWeight: FontWeight.bold)),
                 ]
             )
           )

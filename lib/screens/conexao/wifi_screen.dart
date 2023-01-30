@@ -12,6 +12,17 @@ class WifiPage extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Conectar via Wifi', style: TextStyle(color: Color(0xff87986A))),
           backgroundColor: Colors.white,
+          automaticallyImplyLeading: false,
+          leadingWidth: 70,
+          leading: ElevatedButton.icon(
+          onPressed: () => Navigator.of(context).pop(),
+          icon:  Icon(Icons.arrow_back_sharp, color: Color(0xff87986A)),
+          label: const Text(''),
+          style: ElevatedButton.styleFrom(
+            elevation: 0,
+            backgroundColor: Colors.transparent,
+          ),
+        ),
         ),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
