@@ -10,7 +10,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  bool isSigned = false;
+  bool isSigned = true;
 
   @override
   Widget build(BuildContext context) {
@@ -201,7 +201,8 @@ class _HomePageState extends State<HomePage> {
                   child: QuirbyButton(
                       text: 'Conectar com o Wifi',
                       width: 350,
-                      action: () => {print('To funcionando')})),
+                      action: () => {
+                        Navigator.pushNamed(context, '/conectar-wifi')})),
             ]),
           ));
     } else {
