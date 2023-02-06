@@ -9,6 +9,7 @@ import 'package:quirby_app/screens/termosUso/termos_uso.screen.dart';
 import 'package:quirby_app/screens/informacoes/informacoes_quirby.dart';
 import 'package:quirby_app/screens/informacoes/ajuda.dart';
 import 'package:quirby_app/screens/conexao/wifi_screen.dart';
+import 'package:quirby_app/screens/conexao/bluetooth.dart';
 
 void main() => runApp(const MyApp());
 
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: _title,
-      home: const MyStatefulWidget(),
+      home: BluetoothApp(),
       routes: {
         '/termos-uso': (_) => const TermosDeUso(),
         '/modo-aleatorio': (_) => const AleatorioPage(),
