@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:quirby_app/components/button.dart';
-
+import 'package:quirby_app/requests.dart';
+import 'dart:core';
+import 'dart:convert';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -93,17 +95,32 @@ class _HomePageState extends State<HomePage> {
                               height: 6,
                             ),
                             Row(
-                              children: const [
-                                ImageIcon(
-                                  AssetImage('assets/icons/bateria.png'),
-                                  color: Colors.green,
+                              children: [
+                                FutureBuilder<Map<String, dynamic>>(
+                                  future: getDeviceInfo(),
+                                  builder: (context, snapshot) {
+                                    if (snapshot.hasData) {
+                                      Map<String, dynamic>? deviceInfo = snapshot.data;
+                                      return Column(
+                                        children: [
+                                          ImageIcon(
+                                            AssetImage('assets/icons/bateria.png'),
+                                            color: Colors.green,
+                                          ),
+                                          SizedBox(
+                                            width: 8,
+                                          ),
+                                          Text(snapshot.data!['batteryStatus: ${deviceInfo!['batteryStatus']}\n'].toString(), style: TextStyle(fontSize: 20)),
+                                        ],
+                                      );
+                                    } else if (snapshot.hasError) {
+                                      return Text('Error: ${snapshot.error}');
+                                    }
+                                    return CircularProgressIndicator();
+                                  },
                                 ),
-                                SizedBox(
-                                  width: 8,
-                                ),
-                                Text('40%', style: TextStyle(fontSize: 20)),
                               ],
-                            ),
+                              ),
                             const SizedBox(
                               height: 6,
                             ),
