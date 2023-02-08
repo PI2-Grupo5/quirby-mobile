@@ -197,26 +197,46 @@ class _HomePageState extends State<HomePage> {
                               width: 10,
                             ),
                             Row(
-                              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: const [
-                                ImageIcon(
-                                  AssetImage('assets/icons/direcional.png'),
-                                  color: Colors.green,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                FutureBuilder<Map<String, dynamic>>(
+                                  future: getDeviceInfo(),
+                                  builder: (context, snapshot) {
+                                    if (snapshot.hasData) {
+                                      Map<String, dynamic>? deviceInfo = snapshot.data;
+                                      return Row(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        children: [
+                                          ImageIcon(
+                                            AssetImage('assets/icons/direcional.png'),
+                                            color: deviceInfo!['functionMode'] == 'Direcional' ? Colors.green : Colors.grey,
+                                          ),
+                                          SizedBox(
+                                            width: 8,
+                                          ),
+                                          Text(
+                                            'Modo Direcional',
+                                            style: TextStyle(fontSize: 20),
+                                          ),
+                                          SizedBox(
+                                            width: 15,
+                                          ),
+                                          Text(
+                                            deviceInfo!['functionMode'] == 'Direcional' ? 'ON' : 'OFF',
+                                            style: TextStyle(
+                                              fontSize: 20,
+                                              backgroundColor: deviceInfo!['functionMode'] == 'Direcional' ? Colors.green : Colors.red,
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                        ],
+                                      );
+                                    } else if (snapshot.hasError) {
+                                      return Text('Error: ${snapshot.error}');
+                                    }
+                                    return CircularProgressIndicator();
+                                  },
                                 ),
-                                SizedBox(
-                                  width: 8,
-                                ),
-                                Text('Modo Direcional',
-                                    style: TextStyle(fontSize: 20)),
-                                SizedBox(
-                                  width: 15,
-                                ),
-                                Text('ON',
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      backgroundColor: Colors.green,
-                                      color: Colors.black,
-                                    )),
                               ],
                             ),
                             const SizedBox(
