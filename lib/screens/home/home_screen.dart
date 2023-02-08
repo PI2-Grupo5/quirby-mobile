@@ -152,25 +152,45 @@ class _HomePageState extends State<HomePage> {
                           children: [
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
-                              children: const [
-                                ImageIcon(
-                                  AssetImage('assets/icons/aleatorio.png'),
-                                  color: Colors.green,
+                              children: [
+                                FutureBuilder<Map<String, dynamic>>(
+                                  future: getDeviceInfo(),
+                                  builder: (context, snapshot) {
+                                    if (snapshot.hasData) {
+                                      Map<String, dynamic>? deviceInfo = snapshot.data;
+                                      return Row(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        children: [
+                                          ImageIcon(
+                                            AssetImage('assets/icons/aleatorio.png'),
+                                            color: deviceInfo!['functionMode'] == 'Aleatorio' ? Colors.green : Colors.grey,
+                                          ),
+                                          SizedBox(
+                                            width: 8,
+                                          ),
+                                          Text(
+                                            'Modo Aleatório',
+                                            style: TextStyle(fontSize: 20),
+                                          ),
+                                          SizedBox(
+                                            width: 15,
+                                          ),
+                                          Text(
+                                            deviceInfo!['functionMode'] == 'Aleatorio' ? 'ON' : 'OFF',
+                                            style: TextStyle(
+                                              fontSize: 20,
+                                              backgroundColor: deviceInfo!['functionMode'] == 'Aleatorio' ? Colors.green : Colors.red,
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                        ],
+                                      );
+                                    } else if (snapshot.hasError) {
+                                      return Text('Error: ${snapshot.error}');
+                                    }
+                                    return CircularProgressIndicator();
+                                  },
                                 ),
-                                SizedBox(
-                                  width: 8,
-                                ),
-                                Text('Modo Aleatorio',
-                                    style: TextStyle(fontSize: 20)),
-                                SizedBox(
-                                  width: 15,
-                                ),
-                                Text('OFF',
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      backgroundColor: Colors.red,
-                                      color: Colors.black,
-                                    )),
                               ],
                             ),
                             const SizedBox(
