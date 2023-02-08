@@ -101,7 +101,7 @@ class _HomePageState extends State<HomePage> {
                                   builder: (context, snapshot) {
                                     if (snapshot.hasData) {
                                       Map<String, dynamic>? deviceInfo = snapshot.data;
-                                      return Column(
+                                      return Row(
                                         children: [
                                           ImageIcon(
                                             AssetImage('assets/icons/bateria.png'),
@@ -110,7 +110,7 @@ class _HomePageState extends State<HomePage> {
                                           SizedBox(
                                             width: 8,
                                           ),
-                                          Text(snapshot.data!['batteryStatus: ${deviceInfo!['batteryStatus']}\n'].toString(), style: TextStyle(fontSize: 20)),
+                                          Text('${deviceInfo!['batteryStatus']}%', style: TextStyle(fontSize: 20)),
                                         ],
                                       );
                                     } else if (snapshot.hasError) {
@@ -120,7 +120,7 @@ class _HomePageState extends State<HomePage> {
                                   },
                                 ),
                               ],
-                              ),
+                            ),
                             const SizedBox(
                               height: 6,
                             ),
