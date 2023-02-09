@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:quirby_app/components/button.dart';
-
+import 'package:quirby_app/requests.dart';
 
 class AleatorioPage extends StatefulWidget {
     const AleatorioPage({super.key});
@@ -13,11 +13,24 @@ class AleatorioPage extends StatefulWidget {
 }
 
 class _AleatorioPageState extends State<AleatorioPage> {
-  bool isAleatorioOn = false;
+  String? functionMode;
+
+  @override
+  void initState() {
+    super.initState();
+    _getDeviceInfo();
+  }
+
+  Future<void> _getDeviceInfo() async {
+    Map<String, dynamic> deviceInfo = await getDeviceInfo();
+    setState(() {
+      functionMode = deviceInfo['functionMode'];
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    if(isAleatorioOn == false){
+    if(functionMode == 'Standby'){
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -61,11 +74,14 @@ class _AleatorioPageState extends State<AleatorioPage> {
                                   width: 8,
                                 ),
                                 QuirbyButton(
-                                    text: 'Acionar Modo Aleatório',
-                                    width: 250,
-                                    action: () => {print('Ativando modo Aleatório'),
-                                    isAleatorioOn =true,
-                                    }
+                                  text: 'Acionar Modo Aleatório',
+                                  width: 250,
+                                  action: () {
+                                    setState(() {
+                                      functionMode = 'Aleatorio';
+                                    });
+                                    updateFunctionMode('Aleatorio');
+                                  }
                                 ),
                                 SizedBox(
                                   width: 15,
@@ -131,11 +147,14 @@ class _AleatorioPageState extends State<AleatorioPage> {
                                         width: 8,
                                       ),
                                       QuirbyButton(
-                                          text: 'Desligar Modo Aleatório',
-                                          width: 250,
-                                          action: () => {print('Desligando modo Aleatório'),
-                                          isAleatorioOn =false,
-                                          }
+                                        text: 'Desligar Modo Aleatório',
+                                        width: 250,
+                                        action: () {
+                                          setState(() {
+                                            functionMode = 'Standby';
+                                          });
+                                          updateFunctionMode('Standby');
+                                        }
                                       ),
                                       SizedBox(
                                         width: 15,
@@ -162,6 +181,4 @@ class _AleatorioPageState extends State<AleatorioPage> {
   }
 
 }
-
-  
 
