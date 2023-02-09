@@ -16,7 +16,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    if (isSigned == true) {
+    if (isSigned == false) {
       return MaterialApp(
           debugShowCheckedModeBanner: false,
           home: Scaffold(
