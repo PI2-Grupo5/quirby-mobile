@@ -121,6 +121,40 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ],
                             ),
+                            Row(
+                              children: [
+                                FutureBuilder<Map<String, dynamic>>(
+                                  future: getDeviceInfo(),
+                                  builder: (context, snapshot) {
+                                    if (snapshot.hasData) {
+                                      bool blockedAlert = (snapshot.data?['blockedAlert'] == 'true');
+                                      return Row(
+                                        children: [
+                                          Icon(
+                                            Icons.block_rounded, 
+                                            color: Color(0xff81D460),
+                                            size: 25.0,
+                                          ),
+                                          SizedBox(
+                                            width: 8,
+                                          ),
+                                          Text(
+                                            blockedAlert == true ? "O ROBO ESTÁ PRESO" : "Robo funcionando livremente",
+                                            style: TextStyle(
+                                              fontSize: 20,
+                                              color: blockedAlert == true ? Colors.red : null
+                                            ),
+                                          ),
+                                        ],
+                                      );
+                                    } else if (snapshot.hasError) {
+                                      return Text("${snapshot.error}");
+                                    }
+                                    return CircularProgressIndicator();
+                                  },
+                                ),
+                              ],
+                            ),
                             const SizedBox(
                               height: 6,
                             ),
