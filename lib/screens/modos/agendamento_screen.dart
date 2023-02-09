@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:quirby_app/components/button.dart';
+import 'package:quirby_app/requests.dart';
 
 final _formKey = GlobalKey<FormState>();
 
@@ -15,7 +16,8 @@ class AgendamentoPage extends StatefulWidget {
 }
 
 class _AgendamentoPageState extends State<AgendamentoPage> {
-  var _value= '-1';
+  var _value = '-1';
+  var _valueDuration = '-1';
   bool? repetirSemanalmente = false;
   String? tempo = null;
   TimeOfDay _timeOfDay = TimeOfDay(hour: 18, minute: 00);
@@ -56,7 +58,7 @@ class _AgendamentoPageState extends State<AgendamentoPage> {
             child: Column(
                 children: [
                     DropdownButtonFormField(
-                      value: _value,
+                      value: '-1',
                       items: [
                         DropdownMenuItem(child:Text('-Selecione o dia da semana-'), value: '-1'),
                         DropdownMenuItem(child:Text('Segunda-feira'), value: '1'),
@@ -66,9 +68,11 @@ class _AgendamentoPageState extends State<AgendamentoPage> {
                         DropdownMenuItem(child:Text('Sexta-feira'), value: '5'),
                         DropdownMenuItem(child:Text('Sábado'), value: '6'),
                         DropdownMenuItem(child:Text('Domingo'), value: '7'),
-                        DropdownMenuItem(child:Text('Todos os dias'), value: '8'),
                       ],
-                      onChanged: (v) {},
+                      onChanged: (valueDay) {
+                        _value = valueDay!;
+                        print(_value);
+                      },
                     ),
                       SizedBox(
                         height: 30,
@@ -91,7 +95,6 @@ class _AgendamentoPageState extends State<AgendamentoPage> {
                         height: 20,
                       ),
                     DropdownButtonFormField(
-                      value: _value,
                       items: [
                         DropdownMenuItem(child:Text('-Selecione o tempo de Funcionamento-'), value: '-1'),
                         DropdownMenuItem(child:Text('00:05'), value: '5'),
@@ -101,38 +104,55 @@ class _AgendamentoPageState extends State<AgendamentoPage> {
                         DropdownMenuItem(child:Text('00:25'), value: '25'),
                         DropdownMenuItem(child:Text('00:30'), value: '30'),
                       ],
-                      onChanged: (v) {},
+                      onChanged: (v) {
+                        _valueDuration = v!;
+                        print(_valueDuration);
+                      },
                     ),
-                    Row(
-                      children: [
-                        Checkbox(
-                          value: repetirSemanalmente,
-                          onChanged: (bool? checked) {
-                            setState(() {
-                              print(checked);
-                              repetirSemanalmente = checked;
-                            });
-                          },
-                        ),
-                      Text('Repetir Semanalmente'),
-                    ],
-                  ),
                    SizedBox(
                        height: 30,
                   ),
                 ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xff81D460)),
-                    onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                    content: Text('Great!'),
-                                )
-                            );
-                        }
-                    },
-                    child: const Text('Confirmar'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(0xff81D460),
+                  ),
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      // Convert the day of week to a DateTime object representing the next occurrence of that day
+                      DateTime nextOccurrence = DateTime.now();
+                      while (nextOccurrence.weekday != int.parse(_value)) {
+                        nextOccurrence = nextOccurrence.add(Duration(days: 1));
+                      }
+
+                      // Combine the date with the time of day to get the final date and time
+                      DateTime dateAndTime = DateTime(
+                        nextOccurrence.year,
+                        nextOccurrence.month,
+                        nextOccurrence.day,
+                        _timeOfDay.hour,
+                        _timeOfDay.minute,
+                      );
+
+                      DateTime endDateAndTime = dateAndTime.add(Duration(minutes: int.parse(_valueDuration)));
+
+                      // Convert the final date and time to a string in ISO 8601 format
+                      String iso8601String = dateAndTime.toIso8601String();
+                      String iso8601Duration = endDateAndTime.toIso8601String();
+                      
+                      print(iso8601String);
+                      print(iso8601Duration);
+
+                      List<String> cleaningSchedule = [iso8601String, iso8601Duration];
+                      updateCleaningSchedule(cleaningSchedule);
+
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Great!'),
+                        ),
+                      );
+                    }
+                  },
+                  child: const Text('Confirmar'),
                 ),
                 SizedBox(
                   height: 50,

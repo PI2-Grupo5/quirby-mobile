@@ -24,3 +24,19 @@ Future<void> updateFunctionMode(String functionMode) async {
     throw Exception('Failed to update functionMode');
   }
 }
+
+Future<void> updateCleaningSchedule(List<String> newCleaningSchedule) async {
+  final response = await http.put(
+    Uri.parse('http://localhost:8080/robot/10'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(<String, dynamic>{
+      'cleaningSchedule': newCleaningSchedule.map((date) => date).toList(),
+    }),
+  );
+
+  if (response.statusCode != 200) {
+    throw Exception('Failed to update cleaning schedule');
+  }
+}
