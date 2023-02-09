@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:quirby_app/components/button.dart';
-
+import 'package:quirby_app/requests.dart';
+import 'dart:core';
+import 'dart:convert';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -93,15 +95,30 @@ class _HomePageState extends State<HomePage> {
                               height: 6,
                             ),
                             Row(
-                              children: const [
-                                ImageIcon(
-                                  AssetImage('assets/icons/bateria.png'),
-                                  color: Colors.green,
+                              children: [
+                                FutureBuilder<Map<String, dynamic>>(
+                                  future: getDeviceInfo(),
+                                  builder: (context, snapshot) {
+                                    if (snapshot.hasData) {
+                                      Map<String, dynamic>? deviceInfo = snapshot.data;
+                                      return Row(
+                                        children: [
+                                          ImageIcon(
+                                            AssetImage('assets/icons/bateria.png'),
+                                            color: Colors.green,
+                                          ),
+                                          SizedBox(
+                                            width: 8,
+                                          ),
+                                          Text('${deviceInfo!['batteryStatus']}%', style: TextStyle(fontSize: 20)),
+                                        ],
+                                      );
+                                    } else if (snapshot.hasError) {
+                                      return Text('Error: ${snapshot.error}');
+                                    }
+                                    return CircularProgressIndicator();
+                                  },
                                 ),
-                                SizedBox(
-                                  width: 8,
-                                ),
-                                Text('40%', style: TextStyle(fontSize: 20)),
                               ],
                             ),
                             const SizedBox(
@@ -135,51 +152,91 @@ class _HomePageState extends State<HomePage> {
                           children: [
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
-                              children: const [
-                                ImageIcon(
-                                  AssetImage('assets/icons/aleatorio.png'),
-                                  color: Colors.green,
+                              children: [
+                                FutureBuilder<Map<String, dynamic>>(
+                                  future: getDeviceInfo(),
+                                  builder: (context, snapshot) {
+                                    if (snapshot.hasData) {
+                                      Map<String, dynamic>? deviceInfo = snapshot.data;
+                                      return Row(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        children: [
+                                          ImageIcon(
+                                            AssetImage('assets/icons/aleatorio.png'),
+                                            color: deviceInfo!['functionMode'] == 'Aleatorio' ? Colors.green : Colors.grey,
+                                          ),
+                                          SizedBox(
+                                            width: 8,
+                                          ),
+                                          Text(
+                                            'Modo Aleatório',
+                                            style: TextStyle(fontSize: 20),
+                                          ),
+                                          SizedBox(
+                                            width: 15,
+                                          ),
+                                          Text(
+                                            deviceInfo!['functionMode'] == 'Aleatorio' ? 'ON' : 'OFF',
+                                            style: TextStyle(
+                                              fontSize: 20,
+                                              backgroundColor: deviceInfo!['functionMode'] == 'Aleatorio' ? Colors.green : Colors.red,
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                        ],
+                                      );
+                                    } else if (snapshot.hasError) {
+                                      return Text('Error: ${snapshot.error}');
+                                    }
+                                    return CircularProgressIndicator();
+                                  },
                                 ),
-                                SizedBox(
-                                  width: 8,
-                                ),
-                                Text('Modo Aleatorio',
-                                    style: TextStyle(fontSize: 20)),
-                                SizedBox(
-                                  width: 15,
-                                ),
-                                Text('OFF',
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      backgroundColor: Colors.red,
-                                      color: Colors.black,
-                                    )),
                               ],
                             ),
                             const SizedBox(
                               width: 10,
                             ),
                             Row(
-                              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: const [
-                                ImageIcon(
-                                  AssetImage('assets/icons/direcional.png'),
-                                  color: Colors.green,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                FutureBuilder<Map<String, dynamic>>(
+                                  future: getDeviceInfo(),
+                                  builder: (context, snapshot) {
+                                    if (snapshot.hasData) {
+                                      Map<String, dynamic>? deviceInfo = snapshot.data;
+                                      return Row(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        children: [
+                                          ImageIcon(
+                                            AssetImage('assets/icons/direcional.png'),
+                                            color: deviceInfo!['functionMode'] == 'Direcional' ? Colors.green : Colors.grey,
+                                          ),
+                                          SizedBox(
+                                            width: 8,
+                                          ),
+                                          Text(
+                                            'Modo Direcional',
+                                            style: TextStyle(fontSize: 20),
+                                          ),
+                                          SizedBox(
+                                            width: 15,
+                                          ),
+                                          Text(
+                                            deviceInfo!['functionMode'] == 'Direcional' ? 'ON' : 'OFF',
+                                            style: TextStyle(
+                                              fontSize: 20,
+                                              backgroundColor: deviceInfo!['functionMode'] == 'Direcional' ? Colors.green : Colors.red,
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                        ],
+                                      );
+                                    } else if (snapshot.hasError) {
+                                      return Text('Error: ${snapshot.error}');
+                                    }
+                                    return CircularProgressIndicator();
+                                  },
                                 ),
-                                SizedBox(
-                                  width: 8,
-                                ),
-                                Text('Modo Direcional',
-                                    style: TextStyle(fontSize: 20)),
-                                SizedBox(
-                                  width: 15,
-                                ),
-                                Text('ON',
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      backgroundColor: Colors.green,
-                                      color: Colors.black,
-                                    )),
                               ],
                             ),
                             const SizedBox(
