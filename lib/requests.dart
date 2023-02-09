@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 Future<Map<String, dynamic>> getDeviceInfo() async {
-  final response = await http.get(Uri.parse('http://localhost:8080/robot/10'));
+  final response = await http.get(Uri.parse('https://quirby-api.up.railway.app/robot/1'));
 
   if (response.statusCode == 200) {
     return json.decode(response.body);
@@ -13,7 +13,7 @@ Future<Map<String, dynamic>> getDeviceInfo() async {
 
 Future<void> updateFunctionMode(String functionMode) async {
   final response = await http.put(
-    Uri.parse('http://localhost:8080/robot/10'),
+    Uri.parse('https://quirby-api.up.railway.app/robot/1'),
     headers: {"Content-Type": "application/json"},
     body: json.encode({'functionMode': functionMode})
   );
@@ -27,7 +27,7 @@ Future<void> updateFunctionMode(String functionMode) async {
 
 Future<void> updateCleaningSchedule(List<String> newCleaningSchedule) async {
   final response = await http.put(
-    Uri.parse('http://localhost:8080/robot/10'),
+    Uri.parse('https://quirby-api.up.railway.app/robot/1'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
