@@ -30,7 +30,7 @@ class _AleatorioPageState extends State<AleatorioPage> {
 
   @override
   Widget build(BuildContext context) {
-    if(functionMode == 'Standby'){
+    if(functionMode != 'Aleatorio'){
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -181,4 +181,3 @@ class _AleatorioPageState extends State<AleatorioPage> {
   }
 
 }
-
