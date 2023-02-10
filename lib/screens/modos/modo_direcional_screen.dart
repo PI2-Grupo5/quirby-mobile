@@ -44,6 +44,8 @@ class _DirecionalPageState extends State<DirecionalPage> {
 
   Timer? timer;
 
+  Timer? longPress;
+
   // Availability
   StreamSubscription<BluetoothDiscoveryResult>? _discoveryStreamSubscription;
   bool _isDiscovering = false;
@@ -186,6 +188,16 @@ class _DirecionalPageState extends State<DirecionalPage> {
         }
       }
     }
+  }
+
+  void _longPressDiretion(String diretionValue) {
+    setState(() {
+      direction = diretionValue;
+    });
+  }
+
+  void _stoplongPressDiretion() {
+    longPress?.cancel();
   }
 
   void _sendMessage() async {
@@ -373,8 +385,13 @@ class _DirecionalPageState extends State<DirecionalPage> {
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          QuirbyButton(
+                              text: "Retentar conexão",
+                              width: 100,
+                              action: _restartDiscovery),
                           const SizedBox(height: 10),
                           Center(
+                              child: GestureDetector(
                             child: IconButton(
                                 icon: Icon(Icons.arrow_circle_up,
                                     color: Color(0xff81D460)),
@@ -385,7 +402,14 @@ class _DirecionalPageState extends State<DirecionalPage> {
                                   });
                                   print('Frente');
                                 }),
-                          ),
+                            onLongPressStart: (_) async {
+                              longPress = Timer.periodic(
+                                  Duration(milliseconds: 100),
+                                  (Timer t) => _longPressDiretion('1'));
+                            },
+                            onLongPressCancel: () => _stoplongPressDiretion(),
+                            onLongPressEnd: (_) => _stoplongPressDiretion(),
+                          )),
                           const SizedBox(height: 50),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
