@@ -100,17 +100,21 @@ class _HomePageState extends State<HomePage> {
                                   future: getDeviceInfo(),
                                   builder: (context, snapshot) {
                                     if (snapshot.hasData) {
-                                      Map<String, dynamic>? deviceInfo = snapshot.data;
+                                      Map<String, dynamic>? deviceInfo =
+                                          snapshot.data;
                                       return Row(
                                         children: [
                                           ImageIcon(
-                                            AssetImage('assets/icons/bateria.png'),
+                                            AssetImage(
+                                                'assets/icons/bateria.png'),
                                             color: Colors.green,
                                           ),
                                           SizedBox(
                                             width: 8,
                                           ),
-                                          Text('${deviceInfo!['batteryStatus']}%', style: TextStyle(fontSize: 20)),
+                                          Text(
+                                              '${deviceInfo!['batteryStatus']}%',
+                                              style: TextStyle(fontSize: 20)),
                                         ],
                                       );
                                     } else if (snapshot.hasError) {
@@ -127,11 +131,13 @@ class _HomePageState extends State<HomePage> {
                                   future: getDeviceInfo(),
                                   builder: (context, snapshot) {
                                     if (snapshot.hasData) {
-                                      bool blockedAlert = (snapshot.data?['blockedAlert'] == 'true');
+                                      bool blockedAlert =
+                                          (snapshot.data?['blockedAlert'] ==
+                                              'true');
                                       return Row(
                                         children: [
                                           Icon(
-                                            Icons.block_rounded, 
+                                            Icons.block_rounded,
                                             color: Color(0xff81D460),
                                             size: 25.0,
                                           ),
@@ -139,11 +145,14 @@ class _HomePageState extends State<HomePage> {
                                             width: 8,
                                           ),
                                           Text(
-                                            blockedAlert == true ? "O ROBO ESTÁ PRESO" : "Robo funcionando livremente",
+                                            blockedAlert == true
+                                                ? "O ROBO ESTÁ PRESO"
+                                                : "Robo funcionando livremente",
                                             style: TextStyle(
-                                              fontSize: 20,
-                                              color: blockedAlert == true ? Colors.red : null
-                                            ),
+                                                fontSize: 20,
+                                                color: blockedAlert == true
+                                                    ? Colors.red
+                                                    : null),
                                           ),
                                         ],
                                       );
@@ -191,13 +200,20 @@ class _HomePageState extends State<HomePage> {
                                   future: getDeviceInfo(),
                                   builder: (context, snapshot) {
                                     if (snapshot.hasData) {
-                                      Map<String, dynamic>? deviceInfo = snapshot.data;
+                                      Map<String, dynamic>? deviceInfo =
+                                          snapshot.data;
                                       return Row(
-                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
                                         children: [
                                           ImageIcon(
-                                            AssetImage('assets/icons/aleatorio.png'),
-                                            color: deviceInfo!['functionMode'] == 'Aleatorio' ? Colors.green : Colors.grey,
+                                            AssetImage(
+                                                'assets/icons/aleatorio.png'),
+                                            color:
+                                                deviceInfo!['functionMode'] ==
+                                                        'Aleatorio'
+                                                    ? Colors.green
+                                                    : Colors.grey,
                                           ),
                                           SizedBox(
                                             width: 8,
@@ -210,10 +226,17 @@ class _HomePageState extends State<HomePage> {
                                             width: 15,
                                           ),
                                           Text(
-                                            deviceInfo!['functionMode'] == 'Aleatorio' ? 'ON' : 'OFF',
+                                            deviceInfo!['functionMode'] ==
+                                                    'Aleatorio'
+                                                ? 'ON'
+                                                : 'OFF',
                                             style: TextStyle(
                                               fontSize: 20,
-                                              backgroundColor: deviceInfo!['functionMode'] == 'Aleatorio' ? Colors.green : Colors.red,
+                                              backgroundColor:
+                                                  deviceInfo!['functionMode'] ==
+                                                          'Aleatorio'
+                                                      ? Colors.green
+                                                      : Colors.red,
                                               color: Colors.black,
                                             ),
                                           ),
@@ -237,13 +260,20 @@ class _HomePageState extends State<HomePage> {
                                   future: getDeviceInfo(),
                                   builder: (context, snapshot) {
                                     if (snapshot.hasData) {
-                                      Map<String, dynamic>? deviceInfo = snapshot.data;
+                                      Map<String, dynamic>? deviceInfo =
+                                          snapshot.data;
                                       return Row(
-                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
                                         children: [
                                           ImageIcon(
-                                            AssetImage('assets/icons/direcional.png'),
-                                            color: deviceInfo!['functionMode'] == 'Direcional' ? Colors.green : Colors.grey,
+                                            AssetImage(
+                                                'assets/icons/direcional.png'),
+                                            color:
+                                                deviceInfo!['functionMode'] ==
+                                                        'Direcional'
+                                                    ? Colors.green
+                                                    : Colors.grey,
                                           ),
                                           SizedBox(
                                             width: 8,
@@ -256,10 +286,17 @@ class _HomePageState extends State<HomePage> {
                                             width: 15,
                                           ),
                                           Text(
-                                            deviceInfo!['functionMode'] == 'Direcional' ? 'ON' : 'OFF',
+                                            deviceInfo!['functionMode'] ==
+                                                    'Direcional'
+                                                ? 'ON'
+                                                : 'OFF',
                                             style: TextStyle(
                                               fontSize: 20,
-                                              backgroundColor: deviceInfo!['functionMode'] == 'Direcional' ? Colors.green : Colors.red,
+                                              backgroundColor:
+                                                  deviceInfo!['functionMode'] ==
+                                                          'Direcional'
+                                                      ? Colors.green
+                                                      : Colors.red,
                                               color: Colors.black,
                                             ),
                                           ),
@@ -292,8 +329,8 @@ class _HomePageState extends State<HomePage> {
                   child: QuirbyButton(
                       text: 'Conectar com o Wifi',
                       width: 350,
-                      action: () => {
-                        Navigator.pushNamed(context, '/conectar-wifi')})),
+                      action: () =>
+                          {Navigator.pushNamed(context, '/conectar-wifi')})),
             ]),
           ));
     } else {
