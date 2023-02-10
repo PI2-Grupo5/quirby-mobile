@@ -9,7 +9,6 @@ import 'package:quirby_app/screens/termosUso/termos_uso.screen.dart';
 import 'package:quirby_app/screens/informacoes/informacoes_quirby.dart';
 import 'package:quirby_app/screens/informacoes/ajuda.dart';
 import 'package:quirby_app/screens/conexao/wifi_screen.dart';
-import 'package:quirby_app/screens/conexao/bluetooth.dart';
 
 void main() => runApp(const MyApp());
 
