@@ -40,6 +40,10 @@ class _DirecionalPageState extends State<DirecionalPage> {
   late BluetoothDevice quirby;
   bool isDisconnecting = false;
 
+  String direction = '0';
+
+  Timer? timer;
+
   // Availability
   StreamSubscription<BluetoothDiscoveryResult>? _discoveryStreamSubscription;
   bool _isDiscovering = false;
@@ -120,6 +124,8 @@ class _DirecionalPageState extends State<DirecionalPage> {
     BluetoothConnection.toAddress(quirby.address).then((_connection) {
       print('Connected to the device ');
       connection = _connection;
+      timer = Timer.periodic(
+          Duration(milliseconds: 100), (Timer t) => _sendMessage());
       setState(() {
         isConnecting = false;
         isDisconnecting = false;
@@ -151,6 +157,7 @@ class _DirecionalPageState extends State<DirecionalPage> {
   void dispose() {
     // Avoid memory leak (`setState` after dispose) and cancel discovery
     _discoveryStreamSubscription?.cancel();
+    timer?.cancel();
 
     super.dispose();
   }
@@ -181,8 +188,9 @@ class _DirecionalPageState extends State<DirecionalPage> {
     }
   }
 
-  void _sendMessage(String direction) async {
+  void _sendMessage() async {
     direction = direction.trim();
+    print("Send: $direction");
 
     if (direction.length > 0) {
       try {
@@ -194,6 +202,9 @@ class _DirecionalPageState extends State<DirecionalPage> {
         setState(() {});
       }
     }
+    setState(() {
+      direction = '0';
+    });
   }
 
   @override
@@ -369,7 +380,9 @@ class _DirecionalPageState extends State<DirecionalPage> {
                                     color: Color(0xff81D460)),
                                 iconSize: 100.0,
                                 onPressed: () {
-                                  _sendMessage("1");
+                                  setState(() {
+                                    direction = '1';
+                                  });
                                   print('Frente');
                                 }),
                           ),
@@ -382,7 +395,9 @@ class _DirecionalPageState extends State<DirecionalPage> {
                                       color: Color(0xff81D460)),
                                   iconSize: 100.0,
                                   onPressed: () {
-                                    _sendMessage("4");
+                                    setState(() {
+                                      direction = '4';
+                                    });
                                     print('Esquerda');
                                   }),
                               const SizedBox(width: 80),
@@ -391,7 +406,9 @@ class _DirecionalPageState extends State<DirecionalPage> {
                                       color: Color(0xff81D460)),
                                   iconSize: 100.0,
                                   onPressed: () {
-                                    _sendMessage("2");
+                                    setState(() {
+                                      direction = '2';
+                                    });
                                     print('Direita');
                                   }),
                             ],
@@ -403,7 +420,9 @@ class _DirecionalPageState extends State<DirecionalPage> {
                                     color: Color(0xff81D460)),
                                 iconSize: 100.0,
                                 onPressed: () {
-                                  _sendMessage("2");
+                                  setState(() {
+                                    direction = '3';
+                                  });
                                   print('Volta');
                                 }),
                           ),
