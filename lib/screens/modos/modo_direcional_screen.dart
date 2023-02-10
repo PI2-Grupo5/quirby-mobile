@@ -37,6 +37,7 @@ class _DirecionalPageState extends State<DirecionalPage> {
   BluetoothConnection? connection;
   bool isConnecting = true;
   bool get isConnected => (connection?.isConnected ?? false);
+  bool isConectError = false;
   late BluetoothDevice quirby;
   bool isDisconnecting = false;
 
@@ -84,6 +85,7 @@ class _DirecionalPageState extends State<DirecionalPage> {
   void _restartDiscovery() {
     setState(() {
       _isDiscovering = true;
+      isConnecting = true;
     });
 
     _startDiscovery();
@@ -116,7 +118,7 @@ class _DirecionalPageState extends State<DirecionalPage> {
           setState(() {
             quirby = element.device;
           });
-          _conectToQuirby();
+          if (isDirecionalOn) _conectToQuirby();
         }
       });
     });
@@ -131,6 +133,7 @@ class _DirecionalPageState extends State<DirecionalPage> {
       setState(() {
         isConnecting = false;
         isDisconnecting = false;
+        isConectError = false;
       });
 
       connection!.input!.listen(_onDataReceived).onDone(() {
@@ -151,6 +154,10 @@ class _DirecionalPageState extends State<DirecionalPage> {
       });
     }).catchError((error) {
       print('Cannot connect, exception occured');
+      setState(() {
+        isConectError = true;
+        isConnecting = false;
+      });
       print(error);
     });
   }
@@ -158,10 +165,17 @@ class _DirecionalPageState extends State<DirecionalPage> {
   @override
   void dispose() {
     // Avoid memory leak (`setState` after dispose) and cancel discovery
-    _discoveryStreamSubscription?.cancel();
-    timer?.cancel();
+
+    _turnOffQuirby();
 
     super.dispose();
+  }
+
+  void _turnOffQuirby() async {
+    timer?.cancel();
+    connection!.output.add(Uint8List.fromList(utf8.encode("99" + "\r\n")));
+    await connection!.output.allSent;
+    _discoveryStreamSubscription?.cancel();
   }
 
   void _onDataReceived(Uint8List data) {
@@ -198,6 +212,20 @@ class _DirecionalPageState extends State<DirecionalPage> {
 
   void _stoplongPressDiretion() {
     longPress?.cancel();
+  }
+
+  void _direcionalModeOn() {
+    _conectToQuirby();
+    setState(() {
+      isDirecionalOn = true;
+    });
+  }
+
+  void _direcionalModeOff() {
+    timer?.cancel();
+    setState(() {
+      isDirecionalOn = false;
+    });
   }
 
   void _sendMessage() async {
@@ -268,7 +296,7 @@ class _DirecionalPageState extends State<DirecionalPage> {
                                   width: 250,
                                   action: () => {
                                         print('Ativando modo Direcional'),
-                                        isDirecionalOn = true,
+                                        _direcionalModeOn()
                                       }),
                               SizedBox(
                                 width: 15,
@@ -312,7 +340,25 @@ class _DirecionalPageState extends State<DirecionalPage> {
           ),
           body: Stack(children: [
             Positioned(
-                top: MediaQuery.of(context).size.height * 0.02,
+                top: MediaQuery.of(context).size.height * 0.01,
+                left: MediaQuery.of(context).size.width * .1,
+                child: isConnected
+                    ? Text("Conetado")
+                    : isConectError
+                        ? Column(
+                            children: [
+                              Text("Erro ao conectar. Tente a reconexão"),
+                              isConnecting
+                                  ? CircularProgressIndicator()
+                                  : QuirbyButton(
+                                      text: "Retentar conexão",
+                                      width: 300,
+                                      action: _restartDiscovery),
+                            ],
+                          )
+                        : Text("Conectando ...")),
+            Positioned(
+                top: MediaQuery.of(context).size.height * 0.07,
                 left: MediaQuery.of(context).size.width * -0.02,
                 child: Container(
                   width: 400,
@@ -337,7 +383,7 @@ class _DirecionalPageState extends State<DirecionalPage> {
                                   width: 250,
                                   action: () => {
                                         print('Desligando modo Direcional'),
-                                        isDirecionalOn = false,
+                                        _direcionalModeOff()
                                       }),
                               SizedBox(
                                 width: 15,
@@ -385,10 +431,6 @@ class _DirecionalPageState extends State<DirecionalPage> {
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          QuirbyButton(
-                              text: "Retentar conexão",
-                              width: 100,
-                              action: _restartDiscovery),
                           const SizedBox(height: 10),
                           Center(
                               child: GestureDetector(
