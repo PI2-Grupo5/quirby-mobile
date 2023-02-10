@@ -7,7 +7,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 
-
 class BluetoothApp extends StatefulWidget {
   @override
   _BluetoothAppState createState() => _BluetoothAppState();
@@ -21,9 +20,9 @@ class _BluetoothAppState extends State<BluetoothApp> {
   // Get the instance of the Bluetooth
   FlutterBluetoothSerial _bluetooth = FlutterBluetoothSerial.instance;
   // Track the Bluetooth connection with the remote device
-   BluetoothConnection? connection;
+  BluetoothConnection? connection;
 
- int? _deviceState;
+  int? _deviceState;
 
   bool isDisconnecting = false;
 
@@ -151,7 +150,6 @@ class _BluetoothAppState extends State<BluetoothApp> {
                   color: Colors.white,
                 ),
               ),
-
               onPressed: () async {
                 // So, that when new devices are paired
                 // while the app is running, user can refresh
@@ -249,7 +247,9 @@ class _BluetoothAppState extends State<BluetoothApp> {
                             ElevatedButton(
                               onPressed: _isButtonUnavailable
                                   ? null
-                                  : _connected ? _disconnect : _connect,
+                                  : _connected
+                                      ? _disconnect
+                                      : _connect,
                               child:
                                   Text(_connected ? 'Disconnect' : 'Connect'),
                             ),
@@ -283,7 +283,6 @@ class _BluetoothAppState extends State<BluetoothApp> {
                                     ),
                                   ),
                                 ),
-
                               ],
                             ),
                           ),
@@ -303,15 +302,16 @@ class _BluetoothAppState extends State<BluetoothApp> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
+                        // ignore: prefer_const_constructors
                         Text(
                           "NOTE: If you cannot find the device in the list, please pair the device by going to the bluetooth settings",
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.bold,
                             color: Colors.red,
                           ),
                         ),
-                        SizedBox(height: 15),
+                        const SizedBox(height: 15),
                         ElevatedButton(
                           child: Text("Bluetooth Settings"),
                           onPressed: () {
@@ -360,7 +360,7 @@ class _BluetoothAppState extends State<BluetoothApp> {
       if (!isConnected) {
         await BluetoothConnection.toAddress(_device?.address)
             .then((_connection) {
-          print('Connected to the device');
+          print('Connected to the device $_connection');
           connection = _connection;
           setState(() {
             _connected = true;
@@ -429,11 +429,9 @@ class _BluetoothAppState extends State<BluetoothApp> {
       });
     }
   }
-  
 
   // Method to send message,
   // for turning the Bluetooth device on
- 
 
   // Method to show a Snackbar,
   // taking message as the text
@@ -441,10 +439,10 @@ class _BluetoothAppState extends State<BluetoothApp> {
     String message, {
     Duration duration: const Duration(seconds: 3),
   }) async {
-    await new Future.delayed(new Duration(milliseconds: 100));
+    await Future.delayed(const Duration(milliseconds: 100));
     ScaffoldMessenger.of(context).showSnackBar(
-      new SnackBar(
-        content: new Text(
+      SnackBar(
+        content: Text(
           message,
         ),
         duration: duration,

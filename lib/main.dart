@@ -22,21 +22,19 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: _title,
-      home: BluetoothApp(),
+      home: const MyStatefulWidget(),
       routes: {
         '/termos-uso': (_) => const TermosDeUso(),
         '/modo-aleatorio': (_) => const AleatorioPage(),
-        '/modo-direcional': (_) => const DirecionalPage(),
+        '/modo-direcional': (_) =>
+            const DirecionalPage(checkAvailability: false),
         '/informacoes-quirby': (_) => const InformacaoPage(),
         '/ajuda': (_) => const AjudaPage(),
         '/conectar-wifi': (_) => const WifiPage(),
         '/agendamento': (_) => const AgendamentoPage(),
-
       },
     );
-    
   }
-
 }
 
 class MyStatefulWidget extends StatefulWidget {
