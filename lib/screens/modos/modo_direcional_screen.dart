@@ -414,41 +414,71 @@ class _DirecionalPageState extends State<DirecionalPage> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              IconButton(
-                                  icon: Icon(Icons.arrow_circle_left_outlined,
-                                      color: Color(0xff81D460)),
-                                  iconSize: 100.0,
-                                  onPressed: () {
-                                    setState(() {
-                                      direction = '4';
-                                    });
-                                    print('Esquerda');
-                                  }),
+                              GestureDetector(
+                                child: IconButton(
+                                    icon: Icon(Icons.arrow_circle_left_outlined,
+                                        color: Color(0xff81D460)),
+                                    iconSize: 100.0,
+                                    onPressed: () {
+                                      setState(() {
+                                        direction = '4';
+                                      });
+                                      print('Esquerda');
+                                    }),
+                                onLongPressStart: (_) async {
+                                  longPress = Timer.periodic(
+                                      Duration(milliseconds: 100),
+                                      (Timer t) => _longPressDiretion('4'));
+                                },
+                                onLongPressCancel: () =>
+                                    _stoplongPressDiretion(),
+                                onLongPressEnd: (_) => _stoplongPressDiretion(),
+                              ),
                               const SizedBox(width: 80),
-                              IconButton(
-                                  icon: Icon(Icons.arrow_circle_right_outlined,
-                                      color: Color(0xff81D460)),
-                                  iconSize: 100.0,
-                                  onPressed: () {
-                                    setState(() {
-                                      direction = '2';
-                                    });
-                                    print('Direita');
-                                  }),
+                              GestureDetector(
+                                child: IconButton(
+                                    icon: Icon(
+                                        Icons.arrow_circle_right_outlined,
+                                        color: Color(0xff81D460)),
+                                    iconSize: 100.0,
+                                    onPressed: () {
+                                      setState(() {
+                                        direction = '2';
+                                      });
+                                      print('Direita');
+                                    }),
+                                onLongPressStart: (_) async {
+                                  longPress = Timer.periodic(
+                                      Duration(milliseconds: 100),
+                                      (Timer t) => _longPressDiretion('2'));
+                                },
+                                onLongPressCancel: () =>
+                                    _stoplongPressDiretion(),
+                                onLongPressEnd: (_) => _stoplongPressDiretion(),
+                              ),
                             ],
                           ),
                           const SizedBox(height: 50),
                           Center(
-                            child: IconButton(
-                                icon: Icon(Icons.arrow_circle_down,
-                                    color: Color(0xff81D460)),
-                                iconSize: 100.0,
-                                onPressed: () {
-                                  setState(() {
-                                    direction = '3';
-                                  });
-                                  print('Volta');
-                                }),
+                            child: GestureDetector(
+                              child: IconButton(
+                                  icon: Icon(Icons.arrow_circle_down,
+                                      color: Color(0xff81D460)),
+                                  iconSize: 100.0,
+                                  onPressed: () {
+                                    setState(() {
+                                      direction = '3';
+                                    });
+                                    print('Voltar');
+                                  }),
+                              onLongPressStart: (_) async {
+                                longPress = Timer.periodic(
+                                    Duration(milliseconds: 100),
+                                    (Timer t) => _longPressDiretion('3'));
+                              },
+                              onLongPressCancel: () => _stoplongPressDiretion(),
+                              onLongPressEnd: (_) => _stoplongPressDiretion(),
+                            ),
                           ),
                         ]),
                   ),
