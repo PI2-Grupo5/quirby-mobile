@@ -25,17 +25,15 @@ class MyApp extends StatelessWidget {
       routes: {
         '/termos-uso': (_) => const TermosDeUso(),
         '/modo-aleatorio': (_) => const AleatorioPage(),
-        '/modo-direcional': (_) => const DirecionalPage(),
+        '/modo-direcional': (_) =>
+            const DirecionalPage(checkAvailability: false),
         '/informacoes-quirby': (_) => const InformacaoPage(),
         '/ajuda': (_) => const AjudaPage(),
         '/conectar-wifi': (_) => const WifiPage(),
         '/agendamento': (_) => const AgendamentoPage(),
-
       },
     );
-    
   }
-
 }
 
 class MyStatefulWidget extends StatefulWidget {
