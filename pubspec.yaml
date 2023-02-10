@@ -37,6 +37,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_bluetooth_serial: ^0.3.2
 
+  http: any
+  google_sign_in: ^5.4.4
 
 dev_dependencies:
   flutter_test:

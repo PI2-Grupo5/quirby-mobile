@@ -7,6 +7,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'package:quirby_app/components/button.dart';
+import 'package:quirby_app/requests.dart';
 
 class DirecionalPage extends StatefulWidget {
   final bool checkAvailability;
